@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install pandoc
+        run: sudo apt-get update && sudo apt-get install -y pandoc poppler-utils
+      - name: Install webtome
+        run: uv sync
+      - name: End-to-end build (no network)
+        run: |
+          uv run webtome init /tmp/lib --name "CI Library"
+          cat > /tmp/lib/articles/hello-world.md <<'EOF'
+          ---
+          title: Hello, World
+          author: CI Bot
+          date: '2026-01-01'
+          source_url: https://example.com/hello
+          volume: null
+          ---
+
+          # A heading inside the article
+
+          Some *formatted* text with a [link](https://example.com) and a list:
+
+          - one
+          - two
+          EOF
+          cd /tmp/lib
+          uv run --project $GITHUB_WORKSPACE webtome status
+          uv run --project $GITHUB_WORKSPACE webtome volume new --title "CI Book"
+          uv run --project $GITHUB_WORKSPACE webtome volume fill volume-01
+          uv run --project $GITHUB_WORKSPACE webtome build volume-01
+          test -f dist/volume-01.pdf
+          pdfinfo dist/volume-01.pdf | grep -q "432 x 648" && echo "trim size OK"
