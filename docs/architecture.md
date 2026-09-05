@@ -57,23 +57,25 @@ della voce feed è il fallback quando il recupero di una pagina fallisce o non
 restituisce nulla. Non abilitare l'opzione `deduplicate` di trafilatura: può
 eliminare silenziosamente paragrafi ripetuti in modo legittimo.
 
-## Code map
+## Mappa del codice
 
-| File | Responsibility |
+| File | Responsabilità |
 |---|---|
-| `src/webtome/cli.py` | Typer CLI; all user interaction |
-| `src/webtome/library.py` | Workspace model: config, articles, volumes, frontmatter I/O |
-| `src/webtome/ingest.py` | Feed sync, single-URL fetch, feed auto-discovery |
+| `src/webtome/cli.py` | CLI Typer; tutte le interazioni utente |
+| `src/webtome/library.py` | Modello workspace: configurazione, articoli, volumi, I/O frontmatter |
+| `src/webtome/ingest.py` | Sincronizzazione feed, recupero singolo URL, scoperta automatica feed |
 | `src/webtome/build.py` | volume.yaml -> main.typ -> PDF |
-| `src/webtome/scaffold.py` | `webtome init` templates (incl. the library AGENTS.md) |
-| `src/webtome/templates/book.typ` | The book: page geometry, typography, front/back matter |
+| `src/webtome/scaffold.py` | Template `webtome init`, incluso l'AGENTS.md della libreria |
+| `src/webtome/templates/book.typ` | Il libro: geometria pagina, tipografia, parti iniziali e finali |
 
-## Extension points
+## Punti di estensione
 
-- **New trim sizes / themes**: parameterize `book.typ` (page size, fonts) from
-  `webtome.yaml`; the build already passes config through.
-- **EPUB**: same chapter assembly, pandoc `-t epub3` instead of the Typst path.
-- **Images**: download at ingest time into `articles/assets/<slug>/`, rewrite
-  Markdown refs, let pandoc/Typst embed them; validate 300 DPI at print size.
-- **Importers** (Pocket, Instapaper, browser bookmarks): anything that ends in
-  `library.save_article(meta, body)` is a valid source.
+- **Nuovi formati e temi**: parametrizza `book.typ`, dimensione pagina e font, da
+  `webtome.yaml`; la build passa già la configurazione.
+- **EPUB**: stesso assemblaggio dei capitoli, con pandoc `-t epub3` al posto del
+  percorso Typst.
+- **Immagini**: scaricale durante l'acquisizione in `articles/assets/<slug>/`, riscrivi
+  i riferimenti Markdown, lascia che pandoc/Typst le incorpori e verifica 300 DPI al
+  formato di stampa.
+- **Importatori** (Pocket, Instapaper, segnalibri browser): ogni sorgente che termina
+  in `library.save_article(meta, body)` è valida.
