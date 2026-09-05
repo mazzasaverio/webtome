@@ -1,52 +1,52 @@
-# Printing your volumes
+# Stampare i tuoi volumi
 
-`webtome build` produces an interior PDF at **6"×9" (152×229 mm)** trim, the
-most common paperback size, with mirrored margins (0.875" inside, 0.625"
-outside) and no bleed. Text-only interiors do not need bleed; margins are
-within the requirements of the major print-on-demand services.
+`webtome build` produce un PDF interno in formato **6"×9" (152×229 mm)**, il
+formato più comune per tascabili, con margini speculari (0,875" interno, 0,625"
+esterno) e senza abbondanza. Gli interni di solo testo non richiedono abbondanza;
+i margini rispettano i requisiti dei principali servizi print-on-demand.
 
-## Option 1: home or office printer
+## Opzione 1: stampante domestica o da ufficio
 
-- Print double-sided ("flip on long edge").
-- Either print 2-up on A4/Letter and cut, or print 1-up centered and trim, or
-  simply read it as a stapled/ring-bound stack.
+- Stampa fronte-retro, con ribaltamento sul lato lungo.
+- Stampa due pagine su A4/Letter e ritaglia, oppure una pagina centrata e ritaglia,
+  oppure leggilo come un fascicolo pinzato o rilegato ad anelli.
 
-## Option 2: local print shop
+## Opzione 2: tipografia locale
 
-Ask for: *perfect bound (or coil bound), 6×9 inches, black and white interior,
-cream 80 gsm paper, double-sided*. Hand them `dist/volume-NN.pdf`.
+Chiedi: *brossura fresata, o rilegatura a spirale, 6×9 pollici, interno in bianco
+e nero, carta avorio da 80 gsm, fronte-retro*. Consegna `dist/volume-NN.pdf`.
 
-## Option 3: print-on-demand (one copy is fine)
+## Opzione 3: print-on-demand (va bene anche una sola copia)
 
-[Lulu](https://www.lulu.com/) is the most webtome-friendly service: you can
-print a single private copy without publishing anything. Rough steps:
+[Lulu](https://www.lulu.com/) è il servizio più adatto a webtome: puoi stampare
+una sola copia privata senza pubblicare nulla. Passaggi essenziali:
 
-1. Start a print book project, trim size **6×9 in (US Trade)**.
-2. Upload `dist/volume-NN.pdf` as the interior. Choose black-and-white on
-   cream for essay collections.
-3. Make a cover with their online tool or upload one (see below).
-4. Order your copy. Do **not** enable distribution: these books contain other
-   people's articles and are for personal use only.
+1. Crea un progetto libro stampato, formato rifilato **6×9 in (US Trade)**.
+2. Carica `dist/volume-NN.pdf` come interno. Per raccolte di saggi scegli bianco
+   e nero su carta avorio.
+3. Crea una copertina con il loro strumento online o caricane una, vedi sotto.
+4. Ordina la copia. Non abilitare la distribuzione: questi libri contengono articoli
+   di altre persone e sono esclusivamente per uso personale.
 
-Amazon KDP also accepts 6×9 interiors, but KDP is oriented toward *selling*
-books; for personal anthologies prefer Lulu or a local shop.
+Amazon KDP accetta interni 6×9, ma è orientato alla *vendita* dei libri; per
+antologie personali preferisci Lulu o una tipografia locale.
 
-### Page count limits
+### Limiti di pagine
 
-Perfect binding needs a minimum page count (Lulu: 32; KDP: 24) and tops out
-around 800 pages. `webtome status` shows articles per volume; if a build comes
-out too thin, wait for more articles, too thick, split into two volumes.
+La brossura richiede un numero minimo di pagine, Lulu: 32, KDP: 24, e arriva a
+circa 800 pagine. `webtome status` mostra gli articoli per volume; se una build è
+troppo sottile, attendi altri articoli, se è troppo spessa dividila in due volumi.
 
-### Covers
+### Copertine
 
-The interior PDF is only the inside of the book. Print-on-demand services want
-a separate one-piece cover PDF (back + spine + front) whose spine width
-depends on the final page count. Both Lulu and KDP provide calculators and
-templates; a cover generator is on the webtome roadmap.
+Il PDF interno è solo l'interno del libro. I servizi print-on-demand richiedono
+un PDF separato per la copertina intera, retro + dorso + fronte, la cui larghezza
+del dorso dipende dal numero finale di pagine. Lulu e KDP forniscono calcolatori
+e template; un generatore di copertine è nella roadmap di webtome.
 
-## Copyright, plainly
+## Copyright, in modo diretto
 
-Printing web articles for yourself is personal-use archiving, like printing
-from your browser. Selling or distributing them is not. Keep volumes private;
-webtome stamps every chapter with its source URL and appends a full source
-list so attribution always travels with the paper.
+Stampare articoli web per te stesso è archiviazione per uso personale, come
+stampare dal browser. Venderli o distribuirli non lo è. Mantieni privati i volumi;
+webtome imprime su ogni capitolo il suo URL sorgente e aggiunge l'elenco completo
+delle fonti, così l'attribuzione accompagna sempre la carta.
