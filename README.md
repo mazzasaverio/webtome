@@ -1,64 +1,65 @@
 # webtome
 
-**Turn the web you love into books you can hold.**
+**Trasforma il web che ami in libri da tenere in mano.**
 
-webtome collects articles from your feeds (or any URL), keeps them as clean
-Markdown, and typesets them into print-ready PDF books: real 6"×9" paperbacks
-you can print at home or through any print-on-demand service (Lulu, Amazon KDP,
-a local print shop). When you have printed a volume, new articles accumulate
-for Volume 2, then Volume 3, and so on: your personal, ever-growing anthology
-of the web.
+webtome raccoglie gli articoli dai tuoi feed, o da qualsiasi URL, li conserva
+come Markdown pulito e li compone in PDF di libri pronti per la stampa: veri
+tascabili 6"×9" da stampare a casa o con un servizio print-on-demand come Lulu,
+Amazon KDP o una tipografia locale. Quando stampi un volume, i nuovi articoli si
+accumulano per il Volume 2, poi il Volume 3 e così via: la tua antologia del web,
+personale e in costante crescita.
 
-It is built to be driven by AI agents (Claude Code, Codex, anything that can
-run a CLI): point an agent at your library and say *"organize the next volume
-by theme and build it"*. But every step also works by hand.
+È progettato per essere guidato da agenti AI, come Claude Code, Codex o qualunque
+strumento possa eseguire una CLI: indica a un agente la libreria e chiedi
+*"organizza il prossimo volume per tema e costruiscilo"*. Ogni passaggio funziona
+anche manualmente.
 
 ```
 feeds / URLs  ──▶  articles/*.md  ──▶  volumes/volume-NN  ──▶  dist/volume-NN.pdf
-   (ingest)         (your archive)        (curation)             (print-ready)
+ (acquisizione)      (il tuo archivio)    (curatela)          (pronto per la stampa)
 ```
 
-## Why
+## Perché
 
-Read-later apps pile up unread tabs. Paper does not. Existing tools cover only
-fragments of the journey: [percollate](https://github.com/danburzo/percollate)
-turns pages into PDFs, [RSS2Ebook](https://github.com/MrPike/RSS2Ebook) makes
-ebooks from a feed, blog2print is a paid service locked to specific platforms.
-None of them give you a **curated, versioned library** where articles arrive
-continuously, get organized into well-typeset volumes, and the archive
-remembers what is already on your shelf.
+Le app di lettura differita accumulano schede non lette. La carta no. Gli strumenti
+esistenti coprono solo frammenti del percorso: [percollate](https://github.com/danburzo/percollate)
+trasforma pagine in PDF, [RSS2Ebook](https://github.com/MrPike/RSS2Ebook) crea ebook
+da un feed, blog2print è un servizio a pagamento vincolato a piattaforme specifiche.
+Nessuno offre una **libreria curata e versionata** in cui gli articoli arrivano in
+modo continuo, vengono organizzati in volumi ben composti e l'archivio ricorda cosa
+è già sul tuo scaffale.
 
-## Install
+## Installazione
 
-Prerequisites: [uv](https://docs.astral.sh/uv/) and
+Prerequisiti: [uv](https://docs.astral.sh/uv/) e
 [pandoc](https://pandoc.org/installing.html) (`sudo apt install pandoc` /
-`brew install pandoc`). The Typst compiler is bundled as a Python wheel, so
-there is nothing else to install.
+`brew install pandoc`). Il compilatore Typst è incluso come wheel Python, quindi
+non serve installare altro.
 
 ```bash
 uv tool install git+https://github.com/mazzasaverio/webtome
 ```
 
-## Quickstart
+## Avvio rapido
 
 ```bash
 webtome init my-library && cd my-library
 
-# Follow a blog (feed URL, or the site URL: the feed is auto-discovered)
+# Segui un blog (URL del feed o del sito: il feed viene scoperto automaticamente)
 webtome source add https://simonwillison.net/atom/everything/
 
-# Fetch new articles (run it whenever you like, or from cron)
+# Recupera nuovi articoli (quando preferisci o tramite cron)
 webtome sync --limit 10
 
-# Or grab any single article
+# Oppure recupera un singolo articolo
 webtome add https://example.com/some-great-essay
 
-# Make a book
+# Crea un libro
 webtome volume new --title "Essays I Want on Paper"
-webtome volume fill volume-01        # everything not yet in a volume
-webtome build volume-01              # -> dist/volume-01.pdf, ready to print
+webtome volume fill volume-01        # tutto ciò che non è ancora in un volume
+webtome build volume-01              # -> dist/volume-01.pdf, pronto per la stampa
 
-# Printed it? Freeze it. New articles now accumulate for volume 2.
+# Lo hai stampato? Congelalo. I nuovi articoli ora si accumulano per il volume 2.
 webtome volume mark-printed volume-01
 webtome volume new
 ```
