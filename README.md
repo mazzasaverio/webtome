@@ -67,28 +67,28 @@ webtome volume new
 ## Your library is just files
 
 `webtome init` creates a plain-files workspace you can (and should) put under
-git:
+Git:
 
 ```
 my-library/
-├── webtome.yaml          # library name, curator, defaults
-├── sources.yaml          # the feeds you follow
-├── articles/             # one Markdown file per article, YAML frontmatter
+├── webtome.yaml          # nome libreria, curatore, valori predefiniti
+├── sources.yaml          # i feed che segui
+├── articles/             # un file Markdown per articolo, frontmatter YAML
 │   └── how-i-write-2026-01-12.md
 ├── volumes/
 │   └── volume-01/
-│       └── volume.yaml   # title + ordered article list (or sections)
-├── dist/                 # built PDFs (gitignored)
-└── AGENTS.md             # workflow guide for AI agents (and humans)
+│       └── volume.yaml   # titolo + elenco ordinato di articoli (o sezioni)
+├── dist/                 # PDF generati (ignorati da Git)
+└── AGENTS.md             # guida al flusso per agenti AI e persone
 ```
 
-A `volume.yaml` can be flat or organized into parts:
+Un `volume.yaml` può essere piatto oppure organizzato in parti:
 
 ```yaml
 number: 1
 title: Essays I Want on Paper
 subtitle: Volume 1
-status: draft            # -> printed, once it is on your shelf
+status: draft            # -> printed, una volta sul tuo scaffale
 sections:
   - title: On Writing
     articles: [how-i-write, why-blogs-matter]
@@ -96,23 +96,22 @@ sections:
     articles: [the-case-for-plain-text]
 ```
 
-Everything is human-readable, diffable, and editable by hand or by an agent.
-Nothing is locked in: your articles are Markdown, your book definitions are
-YAML.
+Tutto è leggibile, confrontabile e modificabile a mano o da un agente. Non c'è
+alcun vincolo: gli articoli sono Markdown e le definizioni dei libri sono YAML.
 
-## Using it with AI agents
+## Uso con gli agenti AI
 
-`webtome init` drops an `AGENTS.md` (plus `CLAUDE.md`) into your library
-describing the layout, the commands, and the curation rules. Open the library
-in Claude Code and try:
+`webtome init` inserisce un `AGENTS.md`, insieme a `CLAUDE.md`, nella libreria:
+descrive struttura, comandi e regole di curatela. Apri la libreria in Claude Code
+e prova:
 
-- *"Sync my feeds, then tell me what came in this week."*
-- *"Organize the 23 unassigned articles into a coherent volume 2 with thematic
-  sections, strongest opener first, and build the PDF."*
-- *"This article's extraction has navigation junk at the top, clean it up."*
+- *"Sincronizza i miei feed e dimmi cosa è arrivato questa settimana."*
+- *"Organizza i 23 articoli non assegnati in un coerente volume 2 con sezioni
+  tematiche, l'apertura più forte per prima, e genera il PDF."*
+- *"L'estrazione di questo articolo contiene elementi di navigazione all'inizio, ripuliscila."*
 
-The agent curates; the CLI guarantees the mechanical parts (fetching,
-deduplication by URL, typesetting, volume bookkeeping) stay correct.
+L'agente cura i contenuti; la CLI garantisce che le parti meccaniche, recupero,
+deduplicazione per URL, composizione e gestione dei volumi, restino corrette.
 
 ## Printing the PDF
 
