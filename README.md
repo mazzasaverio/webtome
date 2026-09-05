@@ -64,10 +64,10 @@ webtome volume mark-printed volume-01
 webtome volume new
 ```
 
-## Your library is just files
+## La tua libreria è fatta solo di file
 
-`webtome init` creates a plain-files workspace you can (and should) put under
-Git:
+`webtome init` crea un workspace di semplici file che puoi, e dovresti, mettere
+sotto controllo Git:
 
 ```
 my-library/
@@ -113,40 +113,41 @@ e prova:
 L'agente cura i contenuti; la CLI garantisce che le parti meccaniche, recupero,
 deduplicazione per URL, composizione e gestione dei volumi, restino corrette.
 
-## Printing the PDF
+## Stampare il PDF
 
-Volumes are typeset for a **6"×9" (152×229 mm) trim size**, the most common
-paperback format, with mirrored inside/outside margins and no bleed (text-only
-interiors do not need it). That means the PDF is accepted as-is by:
+I volumi sono composti per un **formato rifilato 6"×9" (152×229 mm)**, il formato
+più comune per i tascabili, con margini interno ed esterno speculari e senza
+abbondanza, che non serve per gli interni di solo testo. Il PDF viene quindi
+accettato direttamente da:
 
-- **Home / office printing**: print 2 pages per sheet, or just print A5-ish.
-- **Local print shops**: ask for "perfect bound, 6×9, cream paper".
-- **[Lulu](https://www.lulu.com/)**: print-on-demand from one copy, private by
-  default.
-- **Amazon KDP**: works too, but remember these books are for *personal use*;
-  do not publish other people's articles for sale.
+- **Stampa domestica o da ufficio**: stampa due pagine per foglio, oppure un A5 circa.
+- **Tipografie locali**: chiedi "brossura fresata, 6×9, carta avorio".
+- **[Lulu](https://www.lulu.com/)**: stampa on demand anche da una copia, privata
+  per impostazione predefinita.
+- **Amazon KDP**: funziona, ma questi libri sono per *uso personale*; non pubblicare
+  per la vendita articoli di altre persone.
 
-See [docs/printing.md](docs/printing.md) for details (page counts, paper,
-covers).
+Vedi [docs/printing.md](docs/printing.md) per i dettagli su pagine, carta e copertine.
 
-**Copyright note**: webtome is a tool for personal archiving and reading, like
-printing pages from your browser. The articles remain their authors' property.
-Each chapter records its source URL and every volume ends with a full source
-list. Do not sell or redistribute books made from content you do not own.
+**Nota sul copyright**: webtome è uno strumento per archiviare e leggere a uso
+personale, come stampare pagine dal browser. Gli articoli restano di proprietà dei
+rispettivi autori. Ogni capitolo registra il suo URL sorgente e ogni volume termina
+con l'elenco completo delle fonti. Non vendere né ridistribuire libri creati da
+contenuti che non possiedi.
 
 ## Roadmap
 
-- [ ] Images in articles (downloaded, grayscale, 300 DPI checked)
-- [ ] EPUB output alongside PDF
-- [ ] More trim sizes and themes (A5, 5.5"×8.5"; font choices)
-- [ ] Cover generator (front/back/spine sized from page count)
-- [ ] `webtome import` from Pocket/Instapaper/Omnivore exports
-- [ ] Optional agent-written volume introductions and section notes
+- [ ] Immagini negli articoli, scaricate, in scala di grigi e verificate a 300 DPI
+- [ ] Output EPUB accanto al PDF
+- [ ] Più formati e temi, A5, 5,5"×8,5" e scelte tipografiche
+- [ ] Generatore di copertine, con retro, dorso e fronte dimensionati dal numero di pagine
+- [ ] `webtome import` dalle esportazioni Pocket/Instapaper/Omnivore
+- [ ] Introduzioni ai volumi e note alle sezioni facoltative, scritte da un agente
 
-Contributions welcome: this project is deliberately small and file-based so it
-is easy to extend.
+I contributi sono benvenuti: il progetto è deliberatamente piccolo e basato su file,
+così è facile da estendere.
 
-## Development
+## Sviluppo
 
 ```bash
 git clone https://github.com/mazzasaverio/webtome && cd webtome
@@ -154,8 +155,8 @@ uv sync
 uv run webtome --help
 ```
 
-See [docs/architecture.md](docs/architecture.md) for how the pieces fit.
+Vedi [docs/architecture.md](docs/architecture.md) per capire come si integrano le parti.
 
-## License
+## Licenza
 
 [MIT](LICENSE)
