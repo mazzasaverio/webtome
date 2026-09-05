@@ -1,9 +1,9 @@
-# Architecture
+# Architettura
 
-webtome is deliberately small: a thin CLI over a plain-files workspace, with
-two external moving parts (pandoc and the bundled Typst compiler).
+webtome è deliberatamente piccolo: una CLI sottile su un workspace di semplici
+file, con due componenti esterni, pandoc e il compilatore Typst incluso.
 
-## The pipeline
+## La pipeline
 
 ```
                  ┌─────────────┐
@@ -14,7 +14,7 @@ two external moving parts (pandoc and the bundled Typst compiler).
                        │
                        ▼
                  ┌─────────────┐
-                 │  curation   │  humans and/or agents edit volume.yaml
+                 │  curatela    │  persone e/o agenti modificano volume.yaml
                  └─────┬───────┘
                        ▼
                  volumes/volume-NN/volume.yaml
@@ -24,38 +24,38 @@ two external moving parts (pandoc and the bundled Typst compiler).
                  │   build     │  pandoc (md -> typst) + typst wheel (typst -> pdf)
                  └─────┬───────┘
                        ▼
-                 dist/volume-NN.pdf     6"x9" print-ready interior
+                 dist/volume-NN.pdf     interno 6"x9" pronto per la stampa
 ```
 
-## Design decisions
+## Decisioni progettuali
 
-**Files over databases.** The library is Markdown + YAML in a directory. This
-makes the whole state git-versionable, hand-editable, agent-editable, and
-impossible to lock in. Deduplication needs no index: an article is "known" if
-any file's `source_url` matches.
+**File invece di database.** La libreria è Markdown + YAML in una directory.
+Questo rende l'intero stato versionabile con Git, modificabile a mano o da agenti
+e senza vincoli. La deduplicazione non richiede un indice: un articolo è noto se
+il `source_url` di un file corrisponde.
 
-**Curation is data, not code.** A book is a `volume.yaml` listing slugs in
-reading order, optionally grouped into sections. Reorganizing a book is
-editing a ten-line YAML file. This is also what makes the project agent-first:
-the creative work (selecting, grouping, ordering) is exactly the part LLMs are
-good at, and it happens entirely in one small file.
+**La curatela è dati, non codice.** Un libro è un `volume.yaml` che elenca slug
+in ordine di lettura, facoltativamente raggruppati in sezioni. Riorganizzare un
+libro significa modificare dieci righe YAML. È ciò che rende il progetto adatto
+agli agenti: il lavoro creativo, selezione, raggruppamento e ordine, è proprio
+quello in cui gli LLM sono efficaci e avviene in un solo piccolo file.
 
-**Typst over LaTeX.** The interior is typeset by Typst: LaTeX-quality output,
-milliseconds to compile, and, decisively, available as a self-contained Python
-wheel (the `typst` package), so users install nothing but `uv tool install
-webtome` plus pandoc. Pandoc converts each article's Markdown body to Typst
-markup; `templates/book.typ` provides the book frame (title page, colophon,
-TOC, chapter openers, sources appendix).
+**Typst invece di LaTeX.** L'interno è composto da Typst: output di qualità LaTeX,
+compilazione in millisecondi e, soprattutto, disponibilità come wheel Python
+autosufficiente nel pacchetto `typst`. L'utente installa quindi solo `uv tool install
+webtome` e pandoc. Pandoc converte il corpo Markdown di ogni articolo in markup Typst;
+`templates/book.typ` fornisce la struttura del libro, frontespizio, colophon, indice,
+aperture dei capitoli e appendice delle fonti.
 
-**Volumes are append-only history.** Once a volume is `printed` it is frozen;
-`webtome volume fill` only ever pulls articles whose frontmatter has no
-`volume`. The shelf grows monotonically: volume 1, volume 2, ...
+**I volumi sono storia append-only.** Quando un volume è `printed`, è congelato;
+`webtome volume fill` recupera solo articoli il cui frontmatter non ha `volume`.
+Lo scaffale cresce in modo monotono: volume 1, volume 2 e così via.
 
-**Extraction is trafilatura.** It has the best precision/recall trade-off of
-the open-source content extractors and outputs Markdown directly. The feed
-entry's own HTML is the fallback when a page fetch fails or yields nothing.
-Note: do not enable trafilatura's `deduplicate` option; it can silently drop
-legitimately repeated paragraphs.
+**L'estrazione usa trafilatura.** Ha il miglior compromesso precisione/recall tra
+gli estrattori di contenuti open source e produce Markdown direttamente. L'HTML
+della voce feed è il fallback quando il recupero di una pagina fallisce o non
+restituisce nulla. Non abilitare l'opzione `deduplicate` di trafilatura: può
+eliminare silenziosamente paragrafi ripetuti in modo legittimo.
 
 ## Code map
 
