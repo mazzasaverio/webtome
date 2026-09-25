@@ -1,29 +1,3 @@
-# webtome (development)
-
-CLI that turns web feeds/articles into print-ready 6×9 book PDFs, organized in
-volumes. Read `docs/architecture.md` before touching the pipeline.
-
-## Commands
-
-- `uv sync` then `uv run webtome --help`
-- Manual e2e check: `uv run webtome init /tmp/lib && cd /tmp/lib`, add a feed,
-  `sync --limit 3`, `volume new`, `volume fill volume-01`, `build volume-01`,
-  then open `dist/volume-01.pdf` and eyeball the title page, TOC, and a
-  chapter opener.
-- System prerequisite for builds: `pandoc` (Typst is bundled via the `typst`
-  wheel).
-
-## Rules
-
-- The library a user creates with `webtome init` is plain Markdown + YAML;
-  never introduce state that is not a file in the library.
-- `templates/book.typ` is the single source of truth for typography and page
-  geometry; build code only assembles Typst markup, it never styles.
-- Do not enable trafilatura's `deduplicate` option (drops repeated paragraphs).
-- Printed volumes (`status: printed`) are frozen; no code path may mutate them.
-- Everything in this repo is English (code, docs, comments, commits).
-
-<!-- BEGIN:ops-agent-kernel -->
 # Shared agent runtime
 
 ## Always apply
@@ -46,14 +20,14 @@ volumes. Read `docs/architecture.md` before touching the pipeline.
 
 ## Task routing
 
-Read `.agent-standards/rules/README.md` for implementation, then only relevant rules.
+Read `{{STANDARDS}}/rules/README.md` for implementation, then only relevant rules.
 Do not load every rule, skill, or reference for every task.
 
-- UI, UX, design engineering, or frontend: `.agent-standards/rules/10-frontend.md`.
+- UI, UX, design engineering, or frontend: `{{STANDARDS}}/rules/10-frontend.md`.
   For new visual design use `ops-frontend-design`; for shadcn components use
   `ops-shadcn`; for accessibility checks use `ops-a11y-debugging`, when installed.
 - Prisma queries: use installed `ops-prisma-client-api` and the database rule.
-- Skills and changing technical facts: `.agent-standards/reference/01-shared-agent-knowledge.md`.
+- Skills and changing technical facts: `{{STANDARDS}}/reference/01-shared-agent-knowledge.md`.
   Prefer reviewed project `ops-` skills over same-purpose global copies. Read the
   relevant skill entry point, not its entire upstream tree. Missing browser tools
   or skills must be reported; never claim unperformed checks.
@@ -80,10 +54,10 @@ Do not load every rule, skill, or reference for every task.
   ShellCheck when available. For bundle changes run the offline verifier.
 - Standing owner authorization of 2026-09-05 covers completion, verification,
   documentation, commit, and push to the configured publication branch, including
-  ordinary triggered deployment. Follow `.agent-standards/rules/15-git-merge-workflow.md`;
+  ordinary triggered deployment. Follow `{{STANDARDS}}/rules/15-git-merge-workflow.md`;
   do not infer an ambiguous publication destination. Publish working increments.
 - Assess reusable lessons in the same session under
-  `.agent-standards/reference/03-continuous-learning.md`. Update ops when available;
+  `{{STANDARDS}}/reference/03-continuous-learning.md`. Update ops when available;
   otherwise record a concise pending lesson in existing project documentation.
   Never copy personal context into a product repository.
 - Report changes, checks, publication status, and unavailable validation honestly.
@@ -97,4 +71,3 @@ private context. Inline code paths may also refer to optional, unbundled sources
 If a reference is unavailable, stop only the affected operation, report the missing
 source, and continue independent work. Network access requires a separate explicit
 permission and version check; installing or verifying this bundle is offline.
-<!-- END:ops-agent-kernel -->
