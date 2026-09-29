@@ -52,17 +52,6 @@ IMPORTS = {"CLAUDE.md": "@AGENTS.md", "CLAUDE.local.md": "@AGENTS.md",
            ".claude/CLAUDE.md": "@../AGENTS.md"}
 SHADOWS = (".rules", ".cursorrules", ".windsurfrules", ".clinerules",
            "AGENT.md", ".github/copilot-instructions.md", "STANDARDS.lock")
-CI = b"""name: Agent standards
-on: [push, pull_request]
-permissions:
-  contents: read
-jobs:
-  verify:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - run: python3 .agent-standards/verify.py
-"""
 
 
 class SyncError(Exception):
@@ -668,6 +657,7 @@ def selected_source(ops, root, old):
 
 
 def plan(root, ops, ci=False):
+    require(ci is False, "dedicated Agent standards CI is retired; use plan(..., ci=False)")
     repository(root, ops)
     old_data = read(root, LOCK, optional=True)
     old = parse_manifest(old_data) if old_data is not None else None
@@ -675,9 +665,10 @@ def plan(root, ops, ci=False):
         validate_owned(root, old)
     else:
         require(not safe(root, BUNDLE).exists(), "unknown bundle destination: " + BUNDLE)
+    require(not safe(root, WORKFLOW).exists() or (old is not None and WORKFLOW in old["files"]),
+            "unowned dedicated workflow conflict (preserved): " + WORKFLOW
+            + "; review and move or remove it manually before installing standards")
     payload, block, profiles, skills, source_hash, revision, selected_hash = selected_source(ops, root, old)
-    if ci or (old and WORKFLOW in old["files"]):
-        payload[WORKFLOW] = CI
     for skill in skills:
         if old and skill in old["skills"]:
             continue
@@ -798,14 +789,15 @@ def main(argv=None):
     modes.add_argument("--check", nargs="?", const="", metavar="PATH")
     modes.add_argument("--verify", metavar="PATH")
     modes.add_argument("--list", action="store_true")
-    parser.add_argument("--ci", action="store_true", help="install the dedicated integrity workflow")
+    parser.add_argument("--ci", action="store_true", help="retired option; rejected without writes")
     if argv is None:
         argv = sys.argv[1:]
         if not argv and Path(__file__).name == "verify.py":
             argv = ["--verify", str(Path(__file__).absolute().parent.parent)]
     args = parser.parse_args(argv)
-    if args.ci and not (args.install or args.install_all):
-        parser.error("--ci requires --install, --write or --install-all")
+    if args.ci:
+        parser.error("--ci is retired; rerun without --ci. Dedicated Agent standards workflows "
+                     "are no longer created; unchanged owned workflows are removed on install")
     try:
         if args.verify is not None:
             root = root_path(args.verify)
@@ -822,7 +814,7 @@ def main(argv=None):
         plans, failed = [], False
         for root in roots:
             try:
-                operations, warnings = plan(root, ops, args.ci)
+                operations, warnings = plan(root, ops)
                 for warning in warnings:
                     print(str(root) + ": warning: " + warning, file=sys.stderr)
                 if args.check is not None:

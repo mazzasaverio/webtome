@@ -40,7 +40,7 @@ inventory.
   separate expiring team tokens with only the required permissions; avoid `root`
   and `read:sensitive` unless demonstrated necessary.
 - Before API automation, read the dated limits in
-  [Coolify API observations](https://github.com/mazzasaverio/ops/blob/ae1cb43d951d9b90a04ce13ddcb7afab3ab28d06/platform/reference/01-coolify-api.md).
+  [Coolify API observations](https://github.com/mazzasaverio/ops/blob/c3a410565499d8f8926f9850b5eb5d0c094fa545/platform/reference/01-coolify-api.md).
 - For kernel OOM during a Compose build, measure memory, swap, and concurrency
   before retrying. Disk cleanup does not fix OOM; measure before attributing cause.
 
@@ -67,5 +67,5 @@ retain the rehearsal copy until verification ends.
 
 - Server inventory: `platform/02-servers.md`.
 - [Extended production operation checks](../reference/06-production-operations.md).
-- API limits: [dated observations](https://github.com/mazzasaverio/ops/blob/ae1cb43d951d9b90a04ce13ddcb7afab3ab28d06/platform/reference/01-coolify-api.md).
-- Provisioning and recovery: [new-app reference](https://github.com/mazzasaverio/ops/blob/ae1cb43d951d9b90a04ce13ddcb7afab3ab28d06/scripts/new-app/README.md).
+- API limits: [dated observations](https://github.com/mazzasaverio/ops/blob/c3a410565499d8f8926f9850b5eb5d0c094fa545/platform/reference/01-coolify-api.md).
+- Provisioning and recovery: [new-app reference](https://github.com/mazzasaverio/ops/blob/c3a410565499d8f8926f9850b5eb5d0c094fa545/scripts/new-app/README.md).
